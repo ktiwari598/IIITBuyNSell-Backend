@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,7 +30,8 @@ public class ItemService {
 
     public void saveItem(List<ItemDTO> itemList) {
         if (!CollectionUtils.isEmpty(itemList)) {
-            List<Item> items = itemList.stream().map(itemDTO -> classConverterUtils.dtoToClass(itemDTO)).toList();
+            List<Item> items = itemList.stream().map(itemDTO -> classConverterUtils.dtoToClass(itemDTO))
+                    .collect(Collectors.toList());
             items.forEach(item -> {
                 userRepository.save(item.getUser());
                 itemRepository.save(item);

@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -34,7 +37,7 @@ public class ItemController {
 
     @PostMapping("/")
     public ResponseEntity<BaseResponse> createItem(@RequestBody ItemDTO itemDTO) {
-        itemService.saveItem(List.of(itemDTO));
+        itemService.saveItem(Collections.singletonList(itemDTO));
         return new ResponseEntity<>(new BaseResponse(), HttpStatus.OK);
     }
 

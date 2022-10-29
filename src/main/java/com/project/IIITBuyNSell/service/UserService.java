@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -26,7 +27,9 @@ public class UserService {
     private ClassConverterUtils classConverterUtils;
 
     public void saveAllUsers(List<UserDTO> usersList) {
-        List<User> users = usersList.stream().map(userDTO -> classConverterUtils.dtoToClass(userDTO)).toList();
+        List<User> users = usersList.stream()
+                .map(userDTO -> classConverterUtils.dtoToClass(userDTO))
+                .collect(Collectors.toList());
         userRepository.saveAll(users);
     }
 
@@ -44,6 +47,6 @@ public class UserService {
         List<User> users = userRepository.findAll();
         return users.stream()
                 .map(classConverterUtils::classToDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 }
